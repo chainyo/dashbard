@@ -1,17 +1,26 @@
 import dash_bootstrap_components as dbc 
 import dash_html_components as html 
 import dash_core_components as dcc 
+import dash_auth
 import plotly.express as px  
 import pandas as pd
 import dash
 import requests
+import os
 
+from boto.s3.connection import S3Connection
 from dash.dependencies import Input, Output
+
+# Récupération des identifiants de connection
+s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 
 # Création de l'application dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
 app.config['suppress_callback_exceptions'] = True
 server = app.server
+
+# authentification au dashboard
+auth = dash_auth.BasicAuth(app, s3)
 
 # Mise en forme de l'application
 app.layout = html.Div([
