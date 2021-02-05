@@ -6,7 +6,6 @@ import plotly.express as px
 import pandas as pd
 import dash
 import requests
-import os
 
 from dash.dependencies import Input, Output
 
