@@ -4,7 +4,6 @@ import dash_core_components as dcc
 import dash_auth
 import plotly.express as px  
 import pandas as pd
-import flask
 import dash
 import requests
 import os
@@ -147,17 +146,17 @@ def dl_json_file(btn_light, btn_full, filiere, region, dptmt, commune, operateur
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
     if 'dl-btn-light' in changed_id:
         if radio == 1:
-            dl_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}").json()}')  
+            save_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}").json()}')  
             return html.P('Données bien téléchargées. Version allégée.')
         elif radio == 2:
             return [html.P("La version allégée n'existe pas pour la consommation totale."),
                     html.P("Veuillez choisir la version complète vou changez de configuration des données.")]
     elif 'dl-btn-full' in changed_id:
         if radio == 1:
-            dl_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}&complete=True").json()}')
+            save_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}&complete=True").json()}')
             return html.P('Données bien téléchargées. Version complète.')
         elif radio == 2:
-            dl_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/tot?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}&complete=True").json()}')
+            save_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/tot?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}&complete=True").json()}')
             return html.P('Données de consommation totale bien téléchargées.')
     else:
         return html.P('')
@@ -198,9 +197,6 @@ def modif_post(update_btn, delete_btn, record_id, filiere, secteur, operateur, c
 def save_json(json):
     with open("conso.json", "w") as my_file:
         my_file.write(json)
-
-def dl_json(json):
-    return flask.send_file(json, attachment_filename='conso.json', as_attachment=True, )
 
 def get_graph(region, dptmt, commune):
     data_gaz = requests.get(f"https://api-energie.herokuapp.com/api/tot?filiere=Gaz&region={region}&dptmt={dptmt}&commune={commune}").json()
