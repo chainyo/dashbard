@@ -1,3 +1,5 @@
+python
+gunicorn
 pandas
 requests
 dash
@@ -5,4 +7,3 @@ dash_bootstrap_components
 dash_html_components
 dash_core_components
 plotly
-gunicorn
