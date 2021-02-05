@@ -8,11 +8,10 @@ import dash
 import requests
 import os
 
-from boto.s3.connection import S3Connection
 from dash.dependencies import Input, Output
 
 # Récupération des identifiants de connection
-s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+s3 = {'jeankev', 'olol'}
 
 # Création de l'application dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
