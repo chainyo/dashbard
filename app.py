@@ -9,6 +9,8 @@ import requests
 import os
 
 from dash.dependencies import Input, Output
+from dash_extensions import Download
+from dash_extensions.snippets import send_data_frame
 
 # Récupération des identifiants de connection
 pwd = os.environ['DASH_NRG_ACCESS']
@@ -146,8 +148,9 @@ def dl_json_file(btn_light, btn_full, filiere, region, dptmt, commune, operateur
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
     if 'dl-btn-light' in changed_id:
         if radio == 1:
-            save_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}").json()}')  
-            return html.P('Données bien téléchargées. Version allégée.')
+            #save_json(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}").json()}')  
+            return send_data_frame(f'{requests.get(f"https://api-energie.herokuapp.com/api/nrg?filiere={filiere}&region={region}&dptmt={dptmt}&commune={commune}&operateur={operateur}").json()}', filename="conso.json")
+            #return html.P('Données bien téléchargées. Version allégée.')
         elif radio == 2:
             return [html.P("La version allégée n'existe pas pour la consommation totale."),
                     html.P("Veuillez choisir la version complète vou changez de configuration des données.")]
