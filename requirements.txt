@@ -4,5 +4,4 @@ requests
 dash
 dash-auth
 plotly
-os
 boto
