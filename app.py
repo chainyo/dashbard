@@ -11,7 +11,7 @@ import os
 from dash.dependencies import Input, Output
 
 # Récupération des identifiants de connection
-pwd = os.environ['dash29admin']
+pwd = os.environ['DASH_NRG_ACCESS']
 
 # Création de l'application dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
@@ -19,7 +19,7 @@ app.config['suppress_callback_exceptions'] = True
 server = app.server
 
 # authentification au dashboard
-auth = dash_auth.BasicAuth(app, {'dash29admin':pwd})
+auth = dash_auth.BasicAuth(app, {'DASH_NRG_ACCESS':pwd})
 
 # Mise en forme de l'application
 app.layout = html.Div([
