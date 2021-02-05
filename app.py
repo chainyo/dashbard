@@ -11,6 +11,7 @@ from dash.dependencies import Input, Output
 # Création de l'application dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
 app.config['suppress_callback_exceptions'] = True
+server = app.server
 
 # Mise en forme de l'application
 app.layout = html.Div([
@@ -214,5 +215,5 @@ def get_graph(region, dptmt, commune):
     return fig
 
 # Lancement de l'application
-if __name__ == '__main__':
-    app.run_server(debug=True)
+# if __name__ == '__main__':
+#     app.run_server(debug=True)
