@@ -6,11 +6,12 @@ import plotly.express as px
 import pandas as pd
 import dash
 import requests
+import os
 
 from dash.dependencies import Input, Output
 
 # Récupération des identifiants de connection
-s3 = {'jeankev', 'olol'}
+pwd = os.environ['dash29admin']
 
 # Création de l'application dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
@@ -18,7 +19,7 @@ app.config['suppress_callback_exceptions'] = True
 server = app.server
 
 # authentification au dashboard
-auth = dash_auth.BasicAuth(app, s3)
+auth = dash_auth.BasicAuth(app, {'dash29admin':pwd})
 
 # Mise en forme de l'application
 app.layout = html.Div([
